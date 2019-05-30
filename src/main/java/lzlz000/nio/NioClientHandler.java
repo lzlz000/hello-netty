@@ -37,6 +37,9 @@ public class NioClientHandler implements Runnable{
     void stop(){
         started = false;
     }
+    boolean isConnected(){
+        return socketChannel.isConnected();
+    }
 
     @Override
     public void run() {

@@ -16,7 +16,7 @@ public class NioClient {
         if(nioClientHandler !=null)
             nioClientHandler.stop();
         nioClientHandler = new NioClientHandler(DEFAULT_SERVER_IP,DEFAULT_PORT);
-        new Thread(nioClientHandler,"Client").start();
+        new Thread(nioClientHandler,"EchoClient").start();
     }
     public static void main(String[] args) throws Exception {
         start();
