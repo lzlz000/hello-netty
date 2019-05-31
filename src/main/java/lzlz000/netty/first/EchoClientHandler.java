@@ -18,19 +18,21 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
             throws Exception {
         String s = msg.toString(CharsetUtil.UTF_8);
         System.out.println(s);
+        if (!Const.BYE.equals(s)){
+            input(ctx);
+        }else {
+            ctx.close();
+        }
         /* 服务器接收到该信息便断开连接 */
-        ctx.writeAndFlush(Unpooled.copiedBuffer(Const.BYE, CharsetUtil.UTF_8));
+//        ctx.writeAndFlush(Unpooled.copiedBuffer(Const.BYE, CharsetUtil.UTF_8));
+
     }
 
     /*客户端被通知channel活跃以后，做事*/
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         //往服务器写数据
-        System.out.print("请输入: ");
-        String next = scanner.nextLine();
-        System.out.println(next);
-        ctx.writeAndFlush(Unpooled.copiedBuffer(next,
-                CharsetUtil.UTF_8));
+        input(ctx);
     }
 
     @Override
@@ -38,6 +40,12 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
             throws Exception {
         cause.printStackTrace();
         ctx.close();
+    }
+    private void input(ChannelHandlerContext ctx){
+        System.out.print("请输入: ");
+        String next = scanner.nextLine();
+        ctx.writeAndFlush(Unpooled.copiedBuffer(next,
+                CharsetUtil.UTF_8));
     }
 
 }

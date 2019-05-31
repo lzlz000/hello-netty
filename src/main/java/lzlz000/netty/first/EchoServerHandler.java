@@ -13,6 +13,7 @@ import static lzlz000.Const.BYE;
 /*指明我这个handler可以在多个channel之间共享，意味这个实现必须线程安全的。*/
 @ChannelHandler.Sharable
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
+    private String aggregate = "";
 
     /*** 服务端读取到网络数据后的处理*/
     @Override
@@ -22,12 +23,13 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         ByteBuf in = (ByteBuf)msg;/*netty实现的缓冲区*/
         String content = in.toString(CharsetUtil.UTF_8);
         if (BYE.equals(content)) {
-            ctx.writeAndFlush(Unpooled.copiedBuffer("再见！",CharsetUtil.UTF_8))
+            ctx.writeAndFlush(Unpooled.copiedBuffer(BYE,CharsetUtil.UTF_8))
                     .addListener(ChannelFutureListener.CLOSE);/*当flush完成后，关闭连接*/;
         }
         System.out.println("Server Accept:"+ content);
-        ctx.write(Unpooled.copiedBuffer("这里是服务器，已收到你的消息： ",CharsetUtil.UTF_8));
-        ctx.write(in);
+        aggregate += content;
+        ctx.write(Unpooled.copiedBuffer("这里是服务器，已收到你的消息： "+aggregate,CharsetUtil.UTF_8));
+//        ctx.write(in);
     }
 
     /*** 服务端读取完成网络数据后的处理*/
