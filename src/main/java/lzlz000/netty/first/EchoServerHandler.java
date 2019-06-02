@@ -14,6 +14,9 @@ import static lzlz000.Const.BYE;
 @ChannelHandler.Sharable
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     private String aggregate = "";
+    public EchoServerHandler(){
+        System.out.println("创建EchoServerHandler");
+    }
 
     /*** 服务端读取到网络数据后的处理*/
     @Override

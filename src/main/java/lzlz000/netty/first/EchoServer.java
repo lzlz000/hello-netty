@@ -33,7 +33,7 @@ public class EchoServer {
     }
 
     private void start() throws InterruptedException {
-//        final EchoServerHandler serverHandler = new EchoServerHandler();
+        final EchoServerHandler serverHandler = new EchoServerHandler();
         /*线程组*/
         EventLoopGroup group = new NioEventLoopGroup();
         try {
@@ -48,7 +48,10 @@ public class EchoServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new EchoServerHandler());
+//                            ch.pipeline().addLast(new EchoServerHandler());
+                            ch.pipeline().addLast("handler1",new EchoOutboundHandler());
+                            ch.pipeline().addLast(serverHandler);
+
                         }
                     });
             ChannelFuture f = b.bind().sync();/*绑定到端口，阻塞等待直到连接完成*/
