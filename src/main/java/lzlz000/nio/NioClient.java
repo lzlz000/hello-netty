@@ -4,10 +4,6 @@ import java.util.Scanner;
 
 import static lzlz000.Const.*;
 
-/**
- * @author Mark老师   享学课堂 https://enjoy.ke.qq.com
- * 类说明：nio通信客户端
- */
 public class NioClient {
 
     private static NioClientHandler nioClientHandler;
