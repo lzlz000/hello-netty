@@ -1,7 +1,8 @@
-package lzlz000.netty.first;
+package lzlz000.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -12,28 +13,15 @@ import java.net.InetSocketAddress;
 
 import static lzlz000.Const.DEFAULT_PORT;
 
-/**
- * netty的helloworld程序
- * 实现这样一个功能
- * 客户端从控制台输入数据，发送给服务器，服务器保存当前收到的消息，并返回从这个客户端收到的所有数据
- * 当客户端输入BYE 服务器断开连接
- */
-public class EchoServer {
+public class BaseServer {
     private final int port;
 
-    private EchoServer(int port) {
+    public BaseServer(int port) {
         this.port = port;
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        EchoServer echoServer = new EchoServer(DEFAULT_PORT);
-        System.out.println("服务器启动");
-        echoServer.start();
-        System.out.println("服务器关闭");
-    }
 
-    private void start() throws InterruptedException {
-        final EchoServerHandler serverHandler = new EchoServerHandler();
+    protected void start(ChannelHandler ... handlers) throws InterruptedException {
         /*线程组*/
         EventLoopGroup group = new NioEventLoopGroup();
         try {
@@ -49,8 +37,8 @@ public class EchoServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
 //                            ch.pipeline().addLast(new EchoServerHandler());
-                            ch.pipeline().addLast("handler1",new EchoOutboundHandler());
-                            ch.pipeline().addLast(serverHandler);
+//                            ch.pipeline().addLast("handler1",new EchoOutboundHandler());
+                            ch.pipeline().addLast(handlers);
 
                         }
                     });

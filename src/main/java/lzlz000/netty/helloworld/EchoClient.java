@@ -1,4 +1,4 @@
-package lzlz000.netty.first;
+package lzlz000.netty.helloworld;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

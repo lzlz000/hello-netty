@@ -1,13 +1,8 @@
-package lzlz000.netty.first;
+package lzlz000.netty.helloworld;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
-import io.netty.util.CharsetUtil;
 
 import java.net.SocketAddress;
-
-import static lzlz000.Const.BYE;
 
 /*指明我这个handler可以在多个channel之间共享，意味这个实现必须线程安全的。*/
 @ChannelHandler.Sharable
