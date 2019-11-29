@@ -14,13 +14,13 @@ public class EchoOutboundHandler extends ChannelOutboundHandlerAdapter {
 
     @Override
     public void flush(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("flush");
+        System.out.println("EchoOutboundHandler.flush");;
         super.flush(ctx);
     }
 
     @Override
     public void connect(ChannelHandlerContext ctx, SocketAddress remoteAddress, SocketAddress localAddress, ChannelPromise promise) throws Exception {
-        System.out.println(ctx.name()+" connect:"+remoteAddress);
+        System.out.println("EchoOutboundHandler.connect "+ctx.name()+" connect:"+remoteAddress);
         super.connect(ctx, remoteAddress, localAddress, promise);
         ctx.pipeline().remove(this).addLast(new EchoClientHandler());
     }

@@ -9,7 +9,7 @@ public class NioServer {
         if(nioServerHandler !=null)
             nioServerHandler.stop();
         nioServerHandler = new NioServerHandler(DEFAULT_PORT);
-        new Thread(nioServerHandler,"Server").start();
+        nioServerHandler.start();
     }
     public static void main(String[] args){
         start();

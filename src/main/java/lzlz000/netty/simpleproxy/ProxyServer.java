@@ -13,7 +13,7 @@ import lzlz000.netty.helloworld.EchoServerHandler;
 
 import java.net.InetSocketAddress;
 
-import static lzlz000.Const.DEFAULT_PORT;
+import static lzlz000.Const.DEFAULT_PORT2;
 
 /**
  * 实现一个流量转发服务器，接收到消息转发给EchoServer
@@ -25,7 +25,7 @@ public class ProxyServer extends BaseServer {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ProxyServer server = new ProxyServer(DEFAULT_PORT);
+        ProxyServer server = new ProxyServer(DEFAULT_PORT2);
         System.out.println("服务器启动");
         server.start();
         System.out.println("服务器关闭");
